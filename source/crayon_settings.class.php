@@ -119,6 +119,9 @@ class CrayonSettings {
     const IGNORE = 'ignore';
     const DELAY_LOAD_JS = 'delay-load-js';
 
+    // append
+    const SHOW_MIXED = true;
+
     private static $cache_array;
 
     public static function get_cache_sec($cache) {
@@ -256,7 +259,11 @@ class CrayonSettings {
             new CrayonSetting(self::EXPAND, FALSE),
             new CrayonSetting(self::EXPAND_TOGGLE, TRUE),
             new CrayonSetting(self::MINIMIZE, FALSE),
-            new CrayonSetting(self::DELAY_LOAD_JS, FALSE)
+            new CrayonSetting(self::DELAY_LOAD_JS, FALSE),
+
+            // append
+            new CrayonSetting(self::SHOW_MIXED, true)
+
         );
 
         $this->set($settings);

@@ -1,9 +1,8 @@
 crayon:
-#  restart: always
+  restart: always
   image: php:7.1-apache
   ports:
     - 1234:80
   volumes:
     - ./source:/var/www/html/
     - ./php.ini:/usr/local/etc/php/php.ini
-#  entrypoint:
