@@ -160,10 +160,53 @@ require_once 'util/theme-editor/theme_editor.php';
 require_once 'crayon_wp.class.php';
 
 if (isset($_POST['code']) && !empty($_POST['code'])) {
-    $result = CrayonWP::highlight($_POST['code'], false, get_option('crayon_options'));
-    $values = explode('plugins_url/fonts/monaco.css" />', $result);
+$result = CrayonWP::highlight($_POST['code'], false, get_option('crayon_options'));
+$values = explode('plugins_url/fonts/monaco.css" />', $result);
 //    die($values[1]);
-    die(preg_replace(array('/>\s+</Um', '/>(\s+\n|\r)/', '/^\s+/'), array('><', '>', ''), $values[1]));
+
+$finalCode = preg_replace(array('/>\s+</Um', '/>(\s+\n|\r)/', '/^\s+/'), array('><', '>', ''), $values[1]);
+
+
+?><!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<h2>预览</h2>
+
+
+<?= $finalCode ?>
+
+
+<script>
+    var CrayonSyntaxSettings = {
+        "version": "_2.7.2_beta",
+        "is_admin": "0",
+        "ajaxurl": "https:\/\/www.duyngha.com\/wp-admin\/admin-ajax.php",
+        "prefix": "crayon-",
+        "setting": "crayon-setting",
+        "selected": "crayon-setting-selected",
+        "changed": "crayon-setting-changed",
+        "special": "crayon-setting-special",
+        "orig_value": "data-orig-value",
+        "debug": ""
+    };
+    var CrayonSyntaxStrings = {"copy": "Press %s to Copy, %s to Paste", "minimize": "Click To Expand Code"};
+</script>
+<link rel="stylesheet" href="css/min/crayon.min.css">
+<link rel="stylesheet" href="themes/twilight/twilight.css">
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/min/crayon.min.js"></script>
+</body>
+</html><?php
+
+die();
 } else {
 ?><!doctype html>
 <html lang="en">
@@ -227,10 +270,28 @@ if (isset($_POST['code']) && !empty($_POST['code'])) {
 </head>
 <body>
 
+<h2>代码高亮</h2>
+
 <form action="./index.php" method="post">
+
     <textarea name="code" cols="100" rows="20"></textarea>
 
     <button type="submit" class="btn blue">提交</button>
+
+    <hr/>
+
+    <a href="customize.php">定制化</a>
+
+    <script>
+        var tpl = `[crayon lang="js"]
+var a = 1;
+console.log(a);
+[/crayon]
+`;
+        document.getElementById('example').onclick = function () {
+            document.getElementsByName('code')[0].innerHTML = tpl
+        }
+    </script>
 
 </form>
 </body>
