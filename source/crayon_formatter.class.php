@@ -142,9 +142,8 @@ class CrayonFormatter {
         // This will return from function with inline print
         if ($hl->is_inline()) {
             $wrap = !$hl->setting_val(CrayonSettings::INLINE_WRAP) ? 'crayon-syntax-inline-nowrap' : '';
-            $output .= '
-			<span id="' . $uid . '" class="crayon-syntax crayon-syntax-inline ' . $wrap . ' crayon-theme-' . $theme_id_dashed . ' crayon-theme-' . $theme_id_dashed . '-inline crayon-font-' . $font_id_dashed . '" style="' . $font_style . '">' .
-                '<span class="crayon-pre crayon-code" style="' . $font_style . ' ' . $pre_style . '">' . $code . '</span>' .
+            $output .= '<span id="' . $uid . '" class="crayon-syntax crayon-syntax-inline ' . $wrap . ' crayon-theme-' . $theme_id_dashed . ' crayon-theme-' . $theme_id_dashed . '-inline crayon-font-' . $font_id_dashed . '">' .
+                '<span class="crayon-pre crayon-code">' . $code . '</span>' .
                 '</span>';
             return $output;
         }
@@ -299,17 +298,17 @@ class CrayonFormatter {
                 $buttons['wrap'] = crayon__('Toggle Line Wrap');
             }
 
-            if ($hl->setting_val(CrayonSettings::EXPAND_TOGGLE)) {
-                $buttons['expand'] = crayon__('Expand Code');
-            }
+//            if ($hl->setting_val(CrayonSettings::EXPAND_TOGGLE)) {
+//                $buttons['expand'] = crayon__('Expand Code');
+//            }
 
             if (!$touch && $hl->setting_val(CrayonSettings::PLAIN) && $hl->setting_val(CrayonSettings::COPY)) {
                 $buttons['copy'] = crayon__('Copy');
             }
 
-            if ($hl->setting_val(CrayonSettings::POPUP)) {
-                $buttons['popup'] = crayon__('Open Code In New Window');
-            }
+//            if ($hl->setting_val(CrayonSettings::POPUP)) {
+//                $buttons['popup'] = crayon__('Open Code In New Window');
+//            }
 
             $buttons_str = '';
             foreach ($buttons as $button => $value) {
@@ -327,10 +326,8 @@ class CrayonFormatter {
              is not enabled or fails, the toolbar won't work so there is no point to display it. */
             $print_plus = $hl->is_mixed() && $hl->setting_val(CrayonSettings::SHOW_MIXED) ? '<span class="crayon-mixed-highlight" title="' . crayon__('Contains Mixed Languages') . '"></span>' : '';
             $buttons = $print_plus . $buttons_str . $print_lang;
-            $toolbar = '
-			<div class="crayon-toolbar" data-settings="' . $toolbar_settings . '" style="' . $toolbar_style . '">' . $print_title . '
-			<div class="crayon-tools" style="' . $toolbar_style . '">' . $buttons . '</div></div>
-			<div class="crayon-info" style="' . $info_style . '"></div>';
+            $toolbar = '<div class="crayon-toolbar" data-settings="' . $toolbar_settings . '">' . $print_title .
+                '<div class="crayon-tools">' . $buttons . '</div></div><div class="crayon-info"></div>';
 
         } else {
             $toolbar = $buttons = $plain_settings = '';
@@ -357,7 +354,7 @@ class CrayonFormatter {
             $readonly = $touch ? '' : 'readonly';
             $print_plain = $print_plain_button = '';
             $textwrap = !$hl->setting_val(CrayonSettings::WRAP) ? 'wrap="soft"' : '';
-            $print_plain = '<textarea ' . $textwrap . ' class="crayon-plain print-no" data-settings="' . $plain_settings . '" ' . $readonly . ' style="' . $pre_style . ' ' . $font_style . '">' . "\n" . self::clean_code($hl->code()) . '</textarea>';
+            $print_plain = '<textarea ' . $textwrap . ' class="crayon-plain print-no" data-settings="' . $plain_settings . '" ' . $readonly . '>' . "\n" . self::clean_code($hl->code()) . '</textarea>';
         } else {
             $print_plain = $plain_settings = $plain_settings = '';
         }
@@ -445,27 +442,15 @@ class CrayonFormatter {
         $crayon_os = CrayonUtil::is_mac() ? 'mac' : 'pc';
 
         // Produce output
-        $output .= '
-		<div id="' . $uid . '" class="crayon-syntax crayon-theme-' . $theme_id_dashed . ' crayon-font-' . $font_id_dashed . ' crayon-os-' . $crayon_os . ' print-yes notranslate" data-settings="' . $code_settings . '" style="' . $code_style . ' ' . $font_style . '">
-		' . $toolbar . '
-			<div class="crayon-plain-wrap">' . $print_plain . '</div>' . '
-			<div class="crayon-main" style="' . $main_style . '">
-				<table class="crayon-table">
-					<tr class="crayon-row">';
+        $output .= '<div id="' . $uid . '" class="crayon-syntax crayon-theme-' . $theme_id_dashed . ' crayon-font-' . $font_id_dashed . ' crayon-os-' . $crayon_os . ' print-yes notranslate" data-settings="' . $code_settings . '">' .
+            $toolbar . '<div class="crayon-plain-wrap">' . $print_plain . '</div>' .
+            '<div class="crayon-main"><table class="crayon-table"><tr class="crayon-row">';
 
         if ($print_nums !== FALSE) {
-            $output .= '
-				<td class="crayon-nums ' . $num_vis . '" data-settings="' . $num_settings . '">
-					<div class="crayon-nums-content" style="' . $font_style . '">' . $print_nums . '</div>
-				</td>';
+            $output .= '<td class="crayon-nums ' . $num_vis . '" data-settings="' . $num_settings . '"><div class="crayon-nums-content">' . $print_nums . '</div></td>';
         }
         // XXX
-        $output .= '
-						<td class="crayon-code"><div class="crayon-pre" style="' . $font_style . ' ' . $pre_style . '">' . $print_code . '</div></td>
-					</tr>
-				</table>
-			</div>
-		</div>';
+        $output .= '<td class="crayon-code"><div class="crayon-pre">' . $print_code . '</div></td></tr></table></div></div>';
         // Debugging stats
         $runtime = $hl->runtime();
         if (!$hl->setting_val(CrayonSettings::DISABLE_RUNTIME) && is_array($runtime) && !empty($runtime)) {

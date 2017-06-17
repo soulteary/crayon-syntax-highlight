@@ -164,8 +164,12 @@ $result = CrayonWP::highlight($_POST['code'], false, get_option('crayon_options'
 $values = explode('plugins_url/fonts/monaco.css" />', $result);
 //    die($values[1]);
 
-$finalCode = preg_replace(array('/>\s+</Um', '/>(\s+\n|\r)/', '/^\s+/'), array('><', '>', ''), $values[1]);
+//$finalCode = preg_replace(array('/>\s+</Um', '/>(\s+\n|\r)/', '/^\s+/'), array('><', '>', ''), $values[1]);
+$finalCode = $values[1];
 
+//$finalCode = str_replace('<span class="crayon-h"></span>', '<span class="crayon-h"> </span>', $finalCode);
+
+$finalCode = "\n" . $finalCode . "\n";
 
 ?><!doctype html>
 <html lang="en">
@@ -180,28 +184,66 @@ $finalCode = preg_replace(array('/>\s+</Um', '/>(\s+\n|\r)/', '/^\s+/'), array('
 
 <h2>预览</h2>
 
-
 <?= $finalCode ?>
 
+<style>
+    .crayon-syntax {
+        font-size: 12px !important;
+        line-height: 15px !important;
+    }
+    .crayon-syntax .crayon-toolbar{
+        font-size: 12px !important;height: 18px !important; line-height: 18px !important;
+    }
+
+    .crayon-syntax .crayon-toolbar .crayon-tools{
+        font-size: 12px !important;height: 18px !important; line-height: 18px !important;
+    }
+
+    .crayon-syntax .crayon-toolbar .crayon-info{
+        min-height: 16.8px !important; line-height: 16.8px !important;
+    }
+
+    .crayon-syntax .crayon-main{
+
+    }
+
+    .crayon-syntax .crayon-plain-wrap .crayon-plain.print-no{
+        -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;
+    }
+
+    .crayon-syntax .crayon-nums .crayon-nums-content{
+        font-size: 12px !important; line-height: 15px !important;
+    }
+
+    .crayon-syntax .crayon-code .crayon-pre{
+        font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;
+    }
+
+
+    .crayon-syntax.crayon-syntax-inline {
+        font-size: 12px !important;  line-height: 15px !important;
+    }
+
+    .crayon-pre.crayon-code {
+        -moz-tab-size: 4;  -o-tab-size: 4;  -webkit-tab-size: 4;  tab-size: 4;
+    }
+</style>
 
 <script>
     var CrayonSyntaxSettings = {
-        "version": "_2.7.2_beta",
-        "is_admin": "0",
-        "ajaxurl": "https:\/\/www.duyngha.com\/wp-admin\/admin-ajax.php",
         "prefix": "crayon-",
         "setting": "crayon-setting",
         "selected": "crayon-setting-selected",
         "changed": "crayon-setting-changed",
         "special": "crayon-setting-special",
-        "orig_value": "data-orig-value",
-        "debug": ""
+        "orig_value": "data-orig-value"
     };
     var CrayonSyntaxStrings = {"copy": "Press %s to Copy, %s to Paste", "minimize": "Click To Expand Code"};
 </script>
+</script>
 <link rel="stylesheet" href="css/min/crayon.min.css">
-<link rel="stylesheet" href="themes/twilight/twilight.css">
-<script src="/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="themes/twilight/twilight.css">
+        <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/min/crayon.min.js"></script>
 </body>
 </html><?php
@@ -280,7 +322,7 @@ die();
 
     <hr/>
 
-    <a href="customize.php">定制化</a>
+    <a href="javascript:void(0)" id="example">Example</a>
 
     <script>
         var tpl = `[crayon lang="js"]
