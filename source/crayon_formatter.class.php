@@ -354,7 +354,7 @@ class CrayonFormatter {
             $readonly = $touch ? '' : 'readonly';
             $print_plain = $print_plain_button = '';
             $textwrap = !$hl->setting_val(CrayonSettings::WRAP) ? 'wrap="soft"' : '';
-            $print_plain = '<textarea ' . $textwrap . ' class="crayon-plain print-no" data-settings="' . $plain_settings . '" ' . $readonly . '>' . "\n" . self::clean_code($hl->code()) . '</textarea>';
+            $print_plain = '<textarea ' . $textwrap . ' class="crayon-plain print-no" data-settings="' . $plain_settings . '" ' . $readonly . ' data-crayon-data-container="true">' . "\n" . self::clean_code($hl->code()) . '</textarea>';
         } else {
             $print_plain = $plain_settings = $plain_settings = '';
         }

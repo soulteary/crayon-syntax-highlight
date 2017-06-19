@@ -169,6 +169,10 @@ $finalCode = $values[1];
 
 //$finalCode = str_replace('<span class="crayon-h"></span>', '<span class="crayon-h"> </span>', $finalCode);
 
+if (isset($_GET['api'])) {
+    die($finalCode);
+}
+
 $finalCode = "\n" . $finalCode . "\n";
 
 ?><!doctype html>
@@ -191,41 +195,61 @@ $finalCode = "\n" . $finalCode . "\n";
         font-size: 12px !important;
         line-height: 15px !important;
     }
-    .crayon-syntax .crayon-toolbar{
-        font-size: 12px !important;height: 18px !important; line-height: 18px !important;
+
+    .crayon-syntax .crayon-toolbar {
+        font-size: 12px !important;
+        height: 18px !important;
+        line-height: 18px !important;
     }
 
-    .crayon-syntax .crayon-toolbar .crayon-tools{
-        font-size: 12px !important;height: 18px !important; line-height: 18px !important;
+    .crayon-syntax .crayon-toolbar .crayon-tools {
+        font-size: 12px !important;
+        height: 18px !important;
+        line-height: 18px !important;
     }
 
-    .crayon-syntax .crayon-toolbar .crayon-info{
-        min-height: 16.8px !important; line-height: 16.8px !important;
+    .crayon-syntax .crayon-toolbar .crayon-info {
+        min-height: 16.8px !important;
+        line-height: 16.8px !important;
     }
 
-    .crayon-syntax .crayon-main{
+    .crayon-syntax .crayon-main {
 
     }
 
-    .crayon-syntax .crayon-plain-wrap .crayon-plain.print-no{
-        -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;
+    .crayon-syntax .crayon-plain-wrap .crayon-plain.print-no {
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        -webkit-tab-size: 4;
+        tab-size: 4;
+        font-size: 12px !important;
+        line-height: 15px !important;
     }
 
-    .crayon-syntax .crayon-nums .crayon-nums-content{
-        font-size: 12px !important; line-height: 15px !important;
+    .crayon-syntax .crayon-nums .crayon-nums-content {
+        font-size: 12px !important;
+        line-height: 15px !important;
     }
 
-    .crayon-syntax .crayon-code .crayon-pre{
-        font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;
+    .crayon-syntax .crayon-code .crayon-pre {
+        font-size: 12px !important;
+        line-height: 15px !important;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        -webkit-tab-size: 4;
+        tab-size: 4;
     }
-
 
     .crayon-syntax.crayon-syntax-inline {
-        font-size: 12px !important;  line-height: 15px !important;
+        font-size: 12px !important;
+        line-height: 15px !important;
     }
 
     .crayon-pre.crayon-code {
-        -moz-tab-size: 4;  -o-tab-size: 4;  -webkit-tab-size: 4;  tab-size: 4;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        -webkit-tab-size: 4;
+        tab-size: 4;
     }
 </style>
 
