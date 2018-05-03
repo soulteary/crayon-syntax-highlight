@@ -85,7 +85,9 @@ class CrayonFormatter {
         // Used for style tag
         $main_style = $code_style = $toolbar_style = $info_style = $font_style = $line_style = $pre_style = '';
         // Unique ID for this instance of Crayon
-        $uid = 'crayon-' . $hl->id();
+        // $uid = 'crayon-' . $hl->id();
+        // hacks by soulteary
+        $uid = 'crayon-' . md5($code);//$hl->id();
         // Print theme id
         // We make the assumption that the id is correct (checked in crayon_wp)
         $theme_id = $hl->setting_val(CrayonSettings::THEME);
@@ -453,14 +455,16 @@ class CrayonFormatter {
         $output .= '<td class="crayon-code"><div class="crayon-pre">' . $print_code . '</div></td></tr></table></div></div>';
         // Debugging stats
         $runtime = $hl->runtime();
-        if (!$hl->setting_val(CrayonSettings::DISABLE_RUNTIME) && is_array($runtime) && !empty($runtime)) {
-            $output = '<!-- Crayon Syntax Highlighter v' . $CRAYON_VERSION . ' -->'
-                . CRAYON_NL . $output . CRAYON_NL . '<!-- ';
-            foreach ($hl->runtime() as $type => $time) {
-                $output .= '[' . $type . ': ' . sprintf('%.4f seconds', $time) . '] ';
-            }
-            $output .= '-->' . CRAYON_NL;
-        }
+
+        // hacks by soulteary
+        //        if (!$hl->setting_val(CrayonSettings::DISABLE_RUNTIME) && is_array($runtime) && !empty($runtime)) {
+//            $output = '<!-- Crayon Syntax Highlighter v' . $CRAYON_VERSION . ' -->'
+//                . CRAYON_NL . $output . CRAYON_NL . '<!-- ';
+//            foreach ($hl->runtime() as $type => $time) {
+//                $output .= '[' . $type . ': ' . sprintf('%.4f seconds', $time) . '] ';
+//            }
+//            $output .= '-->' . CRAYON_NL;
+//        }
         // Determine whether to print to screen or save
         if ($print) {
             echo $output;
