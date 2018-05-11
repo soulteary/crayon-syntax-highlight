@@ -1,11 +1,21 @@
 # crayon-syntax-highlight
 
-将`crayon-syntax-highlight`封装为代码高亮服务。
+Code Highlight Service base on `crayon-syntax-highlight` by dockerize.
 
-## 使用方法
+## Usage
 
 ```
+# clone souce code
+git clone https://github.com/soulteary/crayon-syntax-highlight.git
+
+cd crayon-syntax-highlight
+
+# start service
 docker-compose up -d
-```
 
-然后使用工具调用`:1234`接口即可。
+# webview
+http://127.0.0.1:1234/
+
+# api
+curl -x POST --data '[crayon lang="js"]\nvar a = 1;\nconsole.log(a);\n[/crayon]' http://127.0.0.1:1234/?api 
+```
